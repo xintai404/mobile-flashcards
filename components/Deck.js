@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 
 export default class Deck extends Component{
 	static navigationOptions = ({ navigation }) => {
@@ -14,12 +14,91 @@ export default class Deck extends Component{
 	      }
 	    }
 	}
+	state ={
+		title: '',
+		number: ''
+	}
 
+	componentDidMount(){
+		//fetch the data
+		const title = this.props.navigation.state.params
+		this.setState(() => ({
+			title: 'react',
+			number: 10
+		}))
+	}
 	render(){
+		const {title, number } = this.state
 		return (
-			<View>
-				<Text> my deck </Text>
+			<View style={styles.container}>
+				<Text style={styles.title}>
+					{title}
+				</Text>
+				<Text style={styles.number}>
+					{number} cards
+				</Text>
+				<View>
+				<TouchableOpacity style={styles.addBtn} onPress={() => this.props.navigation.navigate(
+					'AddCard',
+					{title: title}
+				)}>
+					<Text style={styles.btnText, {color:'black'}}>
+					 Add Card
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.startBtn}>
+					<Text style={styles.btnText, {color: 'white'}}>
+					 Start Quiz
+					</Text>
+				</TouchableOpacity>
+				</View>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	container:{
+		flex: 1, 
+		padding: 50,
+		alignItems: 'center', 
+		backgroundColor: '#fff'
+	},
+	title:{
+		fontSize: 30,
+		marginTop: 40,
+		textAlign: 'center',
+	},
+	number:{   
+		fontSize: 15,
+		marginTop: 15,
+		marginBottom: 40,
+		textAlign: 'center',
+		color: 'grey'
+	},
+	addBtn:{
+		borderRadius: 7,
+		paddingTop: 12,
+		paddingLeft: 45,
+		paddingRight: 45,
+		paddingBottom: 12,
+		marginTop: 30,
+		backgroundColor: 'white',
+		borderColor:'black',
+		borderWidth: 1,
+		borderStyle: 'solid'
+	},
+	startBtn:{
+		borderRadius: 7,
+		paddingTop: 12,
+		paddingLeft: 45,
+		paddingRight: 45,
+		paddingBottom: 12,
+		marginTop: 10,
+		backgroundColor: 'black',
+	},
+	btnText:{
+		textAlign:'center',
+		fontSize: 12
+	}
+})

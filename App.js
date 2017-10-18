@@ -4,6 +4,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
+import AddCard from './components/AddCard'
 import { Constants } from 'expo'
 
 const purple = '#292477'
@@ -58,9 +59,14 @@ const MainNavigation = StackNavigator({
   Home: {
     screen: Tabs
   },
+
   Deck:{
     screen: Deck
-  }
+  },
+
+  AddCard: {
+    screen: AddCard
+  },
 })
 
 export default class App extends React.Component {
