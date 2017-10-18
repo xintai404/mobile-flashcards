@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
+import Deck from './components/Deck'
 import { Constants } from 'expo'
 
 const purple = '#292477'
@@ -20,14 +21,14 @@ const Tabs = TabNavigator({
   Decks: {
     screen: DeckList,
     navigationOptions:{
-      tabBarLabel: 'Decks'
+      tabBarLabel: 'DECKS'
     }
   },
 
   AddDeck:{
     screen: AddDeck,
     navigationOptions: {
-      tabBarLabel: 'Add Deck'
+      tabBarLabel: 'NEW DECk'
     }
   }
 }, {
@@ -36,6 +37,9 @@ const Tabs = TabNavigator({
   },
   tabBarOptions:{
     activeTintColor: Platform.OS ==='ios'? purple : white,
+    labelStyle:{
+      fontSize: 12,
+    },
     style:{
       height: 56,
       backgroundColor: Platform.OS === 'ios' ? white : purple,
@@ -53,6 +57,9 @@ const Tabs = TabNavigator({
 const MainNavigation = StackNavigator({
   Home: {
     screen: Tabs
+  },
+  Deck:{
+    screen: Deck
   }
 })
 

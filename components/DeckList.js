@@ -21,15 +21,15 @@ export default class DeckList extends Component{
 		)
 	}
 	render(){
+		let decks = this.decks
 		return (
 			<ScrollView style={styles.container}>
 
-				{decks && decks.map(deck =>{
-					return(
+				{decks && decks.map(deck =>(
 						<TouchableOpacity style={styles.item}
 					 		key={deck.title}
 					 		onPress={() => this.props.navigation.navigate(
-					 			'deck',
+					 			'Deck',
 					 			{title: deck.title}
 					 		)}
 					 	>
@@ -41,8 +41,7 @@ export default class DeckList extends Component{
 							</Text>
 
 						</TouchableOpacity>
-					)
-				})}
+				))}
 			</ScrollView>
 		)
 	}
@@ -52,13 +51,13 @@ const styles = StyleSheet.create({
 
 	container:{
 		flex: 1,
-		flexDirection: 'column',
-		backgroundColor: '#fff'
+		backgroundColor: '#fff',
 	},
 
 	item:{
-		height: 100,
-		alignSelf: 'center',
+		height: 150,
+		alignItems: 'center',
+		justifyContent: 'center',
 		borderBottomWidth: 2,
 		borderStyle: 'solid',
 		borderBottomColor: '#ddd'
