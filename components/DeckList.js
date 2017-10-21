@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import {View, TouchableOpacity, Text, FlatList, ScrollView, StyleSheet } from 'react-native'
 import * as api from '../utils/api'
+import {formatDecks} from '../utils/helper'
 
 export default class DeckList extends Component{
-	decks = [
-		{title: 'reacts', questions: 12},
-		{title: 'easy', questions:2}
-	]
+	state = {}
+
+	componentDidMount(){
+		api.getDecks()
+		.then(data => this.setState({
+			decks: data
+		}))
+	}
 
 	renderItem({item}) {
 		return (
@@ -20,24 +25,25 @@ export default class DeckList extends Component{
 			</View>
 		)
 	}
+
 	render(){
-		let decks = this.decks
+		const { decks }  = this.state
 		return (
 			<ScrollView style={styles.container}>
 
-				{decks && decks.map(deck =>(
+				{ decks && decks.map(deck =>(
 						<TouchableOpacity style={styles.item}
 					 		key={deck.title}
 					 		onPress={() => this.props.navigation.navigate(
 					 			'Deck',
-					 			{title: deck.title}
+					 			{title: deck.title, questions: deck.questions}
 					 		)}
 					 	>
 					 		<Text style={styles.title}>
 								{deck.title}
 							</Text>
 							<Text style={styles.number}>
-								{deck.questions} cards 
+								{deck.questions.length} cards 
 							</Text>
 
 						</TouchableOpacity>

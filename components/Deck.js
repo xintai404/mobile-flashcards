@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import * as api from '../utils/api'
+import { AppLoading } from 'expo'
 
 export default class Deck extends Component{
 	static navigationOptions = ({ navigation }) => {
@@ -14,21 +16,32 @@ export default class Deck extends Component{
 	      }
 	    }
 	}
+
 	state ={
 		title: '',
-		number: ''
+		questions: [],
+		ready: false
 	}
 
 	componentDidMount(){
-		//fetch the data
-		const title = this.props.navigation.state.params
-		this.setState(() => ({
-			title: 'react',
-			number: 10
-		}))
+		const { title } = this.props.navigation.state.params
+
+		api.getDeck(title)
+		.then( (deck) => {
+			this.setState({
+				title: deck.title,
+				questions: deck.questions,
+				ready: true
+			})
+		})
 	}
+
 	render(){
-		const {title, number } = this.state
+		const {title, questions, ready } = this.state
+		const number = questions.length
+		if(!ready){
+			return < AppLoading/ >
+		}
 		return (
 			<View style={styles.container}>
 				<Text style={styles.title}>

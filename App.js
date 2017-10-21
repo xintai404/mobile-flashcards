@@ -6,12 +6,14 @@ import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
 import AddCard from './components/AddCard'
 import { Constants } from 'expo'
+import { setLocalNotification} from './utils/helper'
+import { FontAwesome } from '@expo/vector-icons'
 
 const purple = '#292477'
 const white = '#fff'
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+    <View style={{ backgroundColor: 'black', height: Constants.statusBarHeight }}>
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   )
@@ -22,14 +24,16 @@ const Tabs = TabNavigator({
   Decks: {
     screen: DeckList,
     navigationOptions:{
-      tabBarLabel: 'DECKS'
-    }
+      tabBarLabel: 'DECKS',
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='list' size={30} color={tintColor} />
+    }     
   },
 
   AddDeck:{
     screen: AddDeck,
     navigationOptions: {
-      tabBarLabel: 'NEW DECk'
+      tabBarLabel: 'NEW DECk',
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     }
   }
 }, {
@@ -70,10 +74,13 @@ const MainNavigation = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <View style={styles.container}>    
-        <UdaciStatusBar backgroundColor={purple} barStyle="light-content" /> 
+        <UdaciStatusBar barStyle="light-content" /> 
         <MainNavigation />
       </View>
     );
@@ -85,3 +92,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+

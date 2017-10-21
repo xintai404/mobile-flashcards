@@ -1,33 +1,37 @@
 import { AsyncStorage } from 'react-native'
+import { formatDecks } from './helper'
 
+const DECK_KEY = 'Flashcard:Key'
+
+export function addDecks(decks){
+	return AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks))
+}
 export function getDecks(){
-	return AsyncStorage.getAllKeys()
-			.then( decks => {
-				return decks.map(deck => {
-					return {
-						title: deck.titile, 
-						size: deck.questions.length
-					}
-				})
-			})
+	//AsyncStorage.removeItem(DECK_KEY)  
+	return AsyncStorage.getItem(DECK_KEY)
+			.then(data => formatDecks(data))
 }
 
 export function getDeck(id){
-	return AsyncStorage.getItem(id)
+	return AsyncStorage.getItem(DECK_KEY)
+			.then( JSON.parse)
+			.then((decks) => decks[id])
 }
-
+         
 export function saveDeckTitle(title){
-	return AsyncStorage.setItem(title, JSON.stringify({
-		title: title,
-		questions: []
+	return AsyncStorage.mergeItem(DECK_KEY, JSON.stringify({
+		[title]: {
+			title,
+			questions: []
+		}
 	}))
 }
 
 export function addCardToDeck(title, card){
-	return AsyncStorage.getItem(title)
-			.then(JSON.parse)
-			.then( (deck) => {
-				deck.questions.push(card)
-				return AsyncStorage.setItem(title, JSON.stringify(deck))
+	return AsyncStorage.getItem(DECK_KEY)
+			.then( (data) => {
+				const decks = JSON.parse(data)
+				decks[title].questions.push(card)
+				AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks))
 			})
 }

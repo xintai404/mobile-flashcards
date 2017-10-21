@@ -1,5 +1,7 @@
-import React, {Component}from 'react'
-import { StyleSheet, TextInput, Text, View, TouchableOpacity} from 'react-native'
+import React, { Component }from 'react'
+import { addCardToDeck } from '../utils/api'
+import { StyleSheet, TextInput, Text, View, TouchableOpacity, Keyboard } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
 
 export default class AddCard extends Component{
@@ -15,20 +17,54 @@ export default class AddCard extends Component{
 	    }
 	}
 
-	render(){
+	constructor(props){
+		super(props)
+		this.navigation = this.props.navigation
+		this.state={
+			question:'',
+			answer: ''
+		}
 
+		this.addNewCard = this.addNewCard.bind(this)
+	}
+
+	toHome(){
+    	this.navigation.dispatch(NavigationActions.back())
+	}
+
+	addNewCard(){
+		const { title } = this.navigation.state.params
+		const card = {
+			question: this.state.question,
+			answer: this.state.answer
+		}
+		Keyboard.dismiss()
+		addCardToDeck(title, card)
+
+		this.navigation.goBack()
+
+	}
+
+
+	render(){
+		const { question, answer } = this.state
 		return (
 			<View style={styles.container}>
 
 				<TextInput style={styles.text}
 					placeholder="Question"
+					onChangeText={(text) => this.setState({question: text})}
 				/>
 
 				<TextInput style={styles.text}
 					placeholder="Answer"
+					onChangeText={(text) => this.setState({answer: text})}
 				/>
 
-				<TouchableOpacity style={styles.submitBtn}>
+				<TouchableOpacity style={[styles.submitBtn, {backgroundColor: question.trim() && answer.trim()? 'black' : 'grey'}]} 
+					onPress={this.addNewCard}
+					disabled={ !question.trim() && !answer.trim() }
+				>
 					<Text style={styles.submitBtnText}>
 					 Submit
 					</Text>
@@ -62,7 +98,6 @@ const styles = StyleSheet.create({
 		paddingLeft: 25,
 		paddingRight: 25,
 		paddingBottom: 10,
-		backgroundColor:'black',
 		marginTop: 30
 	},
 	submitBtnText:{
