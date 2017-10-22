@@ -5,6 +5,7 @@ import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
 import AddCard from './components/AddCard'
+import Quiz from './components/Quiz'
 import { Constants } from 'expo'
 import { setLocalNotification} from './utils/helper'
 import { FontAwesome } from '@expo/vector-icons'
@@ -71,6 +72,10 @@ const MainNavigation = StackNavigator({
   AddCard: {
     screen: AddCard
   },
+
+  Quiz: {
+    screen: Quiz
+  }
 })
 
 export default class App extends React.Component {

@@ -59,7 +59,10 @@ export default class Deck extends Component{
 					 Add Card
 					</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.startBtn}>
+				<TouchableOpacity style={styles.startBtn} onPress={() => this.props.navigation.navigate(
+					'Quiz',
+					{title: title}    
+				)}>
 					<Text style={styles.btnText, {color: 'white'}}>
 					 Start Quiz
 					</Text>
@@ -73,13 +76,12 @@ export default class Deck extends Component{
 const styles = StyleSheet.create({
 	container:{
 		flex: 1, 
-		padding: 50,
 		alignItems: 'center', 
+		justifyContent: 'center',
 		backgroundColor: '#fff'
 	},
 	title:{
 		fontSize: 30,
-		marginTop: 40,
 		textAlign: 'center',
 	},
 	number:{   

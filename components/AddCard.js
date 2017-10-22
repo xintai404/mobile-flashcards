@@ -55,7 +55,7 @@ export default class AddCard extends Component{
 					placeholder="Question"
 					onChangeText={(text) => this.setState({question: text})}
 				/>
-
+    
 				<TextInput style={styles.text}
 					placeholder="Answer"
 					onChangeText={(text) => this.setState({answer: text})}

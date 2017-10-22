@@ -14,8 +14,10 @@ export function getDecks(){
 
 export function getDeck(id){
 	return AsyncStorage.getItem(DECK_KEY)
-			.then( JSON.parse)
-			.then((decks) => decks[id])
+			.then((data) => {
+			 	const decks = JSON.parse(data)
+			 	return decks[id]
+			 })
 }
          
 export function saveDeckTitle(title){
