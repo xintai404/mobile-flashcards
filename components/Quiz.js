@@ -84,25 +84,25 @@ export default class Quiz extends Component{
       				<Text style={styles.text}>
       				  	Your Score
       				</Text>
-      				<Text style={styles.text}>
+      				<Text style={styles.text} style={[ styles.text, {color: 'red'}]}>
       					{ Math.round( score/questions.length*100) }
       				</Text>
 
       				<TouchableOpacity style={styles.backBtn} onPress={() => this.props.navigation.navigate(
 						'Home'
 					)}>
-						<Text style={styles.btnText, {color:'black'}}>
-						 Quit Quiz
+						<Text style={styles.btnText}>
+						 Quit
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.resetBtn} onPress={() => this.reset()}>
-						<Text style={styles.btnText, {color: 'white'}}>
-						 Restart Quiz
+						<Text style={styles.btnText}>
+						 Restart
 						</Text>
 					</TouchableOpacity>
       			</View>
       		)
-		}
+		}   
 
 		return (
 			
@@ -123,12 +123,12 @@ export default class Quiz extends Component{
 	      		</TouchableOpacity>
 
       			<TouchableOpacity style={styles.backBtn} onPress={this.onCorrect}>
-					<Text style={styles.btnText, {color:'black'}}>
+					<Text style={styles.btnText}>
 						 Correct
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.resetBtn} onPress={this.onIncorrect}>
-					<Text style={styles.btnText, {color: 'white'}}>
+					<Text style={styles.btnText}>
 						 Incorrect
 					</Text>
 				</TouchableOpacity>
@@ -150,29 +150,35 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-start',
 		fontSize: 15,
 		marginTop: 5,
-		marginLeft: 5
+		marginLeft: 5,
+		fontWeight: '400'
 	},
 	content: {
 		flex: 1,
 		alignItems: 'center', 
-		justifyContent: 'center'
+		justifyContent: 'center',
+		marginTop: -20
 	},
 	text:{
 		fontSize: 30,
 		textAlign: 'center',
 	},
+	hint:{
+		color: 'red',
+		fontWeight: 'bold',
+		paddingTop: 10
+	},
 
 	backBtn:{
+		marginTop: 40,
 		borderRadius: 7,
 		paddingTop: 12,
 		paddingLeft: 45,
 		paddingRight: 45,
 		paddingBottom: 12,
 		marginTop: 30,
-		backgroundColor: 'white',
-		borderColor:'black',
-		borderWidth: 1,
-		borderStyle: 'solid'
+		backgroundColor: 'green',
+		width: 150
 	},
 	resetBtn:{
 		borderRadius: 7,
@@ -181,11 +187,13 @@ const styles = StyleSheet.create({
 		paddingRight: 45,
 		paddingBottom: 12,
 		marginTop: 10,
-		backgroundColor: 'black',
+		backgroundColor: 'red',
+		width: 150
 	},
 	btnText:{
 		textAlign:'center',
-		fontSize: 12
+		fontSize: 12,
+		color: 'white'
 	}
 })
 

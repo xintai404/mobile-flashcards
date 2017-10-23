@@ -5,17 +5,6 @@ import { NavigationActions } from 'react-navigation'
 
 
 export default class AddCard extends Component{
-	static navigationOptions = ({ navigation }) => {
-	    return {
-	      title: 'Add Card',
-	      headerTintColor: 'white',
-	      headerStyle:{
-	      	backgroundColor: 'black',
-	      	paddingTop: -10,
-	      	height: 40
-	      }
-	    }
-	}
 
 	constructor(props){
 		super(props)
